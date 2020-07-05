@@ -1,5 +1,5 @@
 //
-//  ZeroMQ+Context.swift
+//  ZeroMQ+Error.swift
 //  ZeroMQ.swift
 //
 //  Created by darcychiu on 2020/7/5.
@@ -19,18 +19,5 @@
 //  You should have received a copy of the GNU General Public License
 //  along with the ZeroMQ.swift.  If not, see <https://www.gnu.org/licenses/>.
 	
-import Foundation
 
-public extension ZeroMQ {
-  
-  final class Context {
-    
-    public let context: UnsafeMutableRawPointer?
-    
-    init() throws {
-      context = zmq_ctx_new()
-      
-//      guard context != nil else { throw zmq_errno() }
-    }
-  }
-}
+import Foundation
