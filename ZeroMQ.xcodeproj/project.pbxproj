@@ -10,10 +10,10 @@
 		56767B5824B1DA4E00A7E0BE /* ZeroMQ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56767B4E24B1DA4E00A7E0BE /* ZeroMQ.framework */; };
 		56767B5D24B1DA4E00A7E0BE /* ZeroMQTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56767B5C24B1DA4E00A7E0BE /* ZeroMQTests.swift */; };
 		56767B6A24B1DA7B00A7E0BE /* libczmq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56767B6924B1DA7500A7E0BE /* libczmq.a */; };
-		56767B7424B1DBA700A7E0BE /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56767B7324B1DBA700A7E0BE /* Socket.swift */; };
 		56767BA024B1DEF300A7E0BE /* ZeroMQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56767B9F24B1DEF300A7E0BE /* ZeroMQ.swift */; };
 		56767BB224B1E9AC00A7E0BE /* libczmq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56767BB124B1E9AC00A7E0BE /* libczmq.a */; };
 		56767BB324B1E9CB00A7E0BE /* libczmq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56767BB124B1E9AC00A7E0BE /* libczmq.a */; };
+		56767BBB24B2050300A7E0BE /* ZeroMQ+Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56767BBA24B2050300A7E0BE /* ZeroMQ+Context.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,11 +33,11 @@
 		56767B5C24B1DA4E00A7E0BE /* ZeroMQTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroMQTests.swift; sourceTree = "<group>"; };
 		56767B5E24B1DA4E00A7E0BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56767B6924B1DA7500A7E0BE /* libczmq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libczmq.a; sourceTree = "<group>"; };
-		56767B7324B1DBA700A7E0BE /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		56767B9F24B1DEF300A7E0BE /* ZeroMQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroMQ.swift; sourceTree = "<group>"; };
 		56767BAE24B1E93D00A7E0BE /* zmq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zmq.h; sourceTree = "<group>"; };
 		56767BAF24B1E93D00A7E0BE /* ZeroMQ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZeroMQ.h; sourceTree = "<group>"; };
 		56767BB124B1E9AC00A7E0BE /* libczmq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libczmq.a; sourceTree = "<group>"; };
+		56767BBA24B2050300A7E0BE /* ZeroMQ+Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZeroMQ+Context.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +87,7 @@
 				56767BB424B1E9DC00A7E0BE /* Source */,
 				56767BB024B1E98B00A7E0BE /* Library */,
 				56767BAD24B1E93400A7E0BE /* Header */,
-				56767BB524B1EA0E00A7E0BE /* Extra */,
+				56767BB524B1EA0E00A7E0BE /* Supports */,
 			);
 			path = ZeroMQ;
 			sourceTree = "<group>";
@@ -129,18 +129,18 @@
 		56767BB424B1E9DC00A7E0BE /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				56767B7324B1DBA700A7E0BE /* Socket.swift */,
 				56767B9F24B1DEF300A7E0BE /* ZeroMQ.swift */,
+				56767BBA24B2050300A7E0BE /* ZeroMQ+Context.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
 		};
-		56767BB524B1EA0E00A7E0BE /* Extra */ = {
+		56767BB524B1EA0E00A7E0BE /* Supports */ = {
 			isa = PBXGroup;
 			children = (
 				56767B5224B1DA4E00A7E0BE /* Info.plist */,
 			);
-			path = Extra;
+			path = Supports;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,8 +252,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56767B7424B1DBA700A7E0BE /* Socket.swift in Sources */,
 				56767BA024B1DEF300A7E0BE /* ZeroMQ.swift in Sources */,
+				56767BBB24B2050300A7E0BE /* ZeroMQ+Context.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,7 +406,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/ZeroMQ/Extra/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/ZeroMQ/Supports/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -439,7 +439,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/ZeroMQ/Extra/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/ZeroMQ/Supports/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
