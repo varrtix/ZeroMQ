@@ -21,3 +21,53 @@
 	
 
 import Foundation
+
+public extension ZeroMQ {
+  
+  struct ZeroMQError: Error {
+    
+    public typealias Code = Int32
+    
+    let localizedDescription: String
+
+    init(code: Code? = nil) {
+      guard let errorCString = zmq_strerror(code ?? ZeroMQError.code) else {
+        localizedDescription = ""
+        return
+      }
+      localizedDescription = String(cString: errorCString)
+    }
+    
+    static var code: Code { zmq_errno() }
+    
+    static var underlyError: ZeroMQError { ZeroMQError() }
+    
+    public enum ContextReason {
+      case invalidContext
+      case interrupted
+    }
+  }
+}
+
+public extension ZeroMQ.ZeroMQError.ContextReason {
+  
+  var code: ZeroMQ.ZeroMQError.Code {
+    switch self {
+      case .invalidContext: return EFAULT
+      case .interrupted: return EINTR
+    }
+  }
+  
+  var underlyError: ZeroMQ.ZeroMQError {
+    ZeroMQ.ZeroMQError(code: code)
+  }
+  
+  var localizedDescription: String {
+    switch self {
+      case .invalidContext:
+      return "The provided context was invalid."
+      case .interrupted:
+      return "Termination was interrupted by a signal. It can be restarted if needed."
+    }
+  }
+}

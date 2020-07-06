@@ -25,12 +25,26 @@ public extension ZeroMQ {
   
   final class Context {
     
-    public let context: UnsafeMutableRawPointer?
+    private var context: UnsafeMutableRawPointer?
     
     init() throws {
       context = zmq_ctx_new()
       
-//      guard context != nil else { throw zmq_errno() }
+      guard context != nil else { throw ZeroMQError.underlyError }
+      
+    }
+    
+    deinit { try? destroy() }
+    
+    func destroy() throws {
+      guard let context = context else {
+        throw ZeroMQError.ContextReason.invalidContext.underlyError
+      }
+      
+      guard zmq_ctx_destroy(context) == 0 else {
+        throw ZeroMQError.underlyError
+      }
+      self.context = nil
     }
   }
 }
