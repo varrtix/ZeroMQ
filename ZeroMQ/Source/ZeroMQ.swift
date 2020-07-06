@@ -28,7 +28,9 @@ public struct ZeroMQ {
   private init() {}
   
   /// Version of the libzmq Low-level API.
-  public static var zmqVersion: String { "4.3.2" }
+  public static var zmqVersion: String {
+    "\(ZMQ_VERSION_MAJOR).\(ZMQ_VERSION_MINOR).\(ZMQ_VERSION_PATCH)"
+  }
   
   /// Version of this framework.
   public static var framewrokVersion: String {
