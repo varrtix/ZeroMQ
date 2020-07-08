@@ -42,9 +42,14 @@ public extension ZeroMQ {
     
     static var underlyError: ZeroMQError { ZeroMQError() }
     
+    /// The error resons for the context.
     public enum ContextReason {
+      // The provided context was invalid.
       case invalidContext
+      // Termination was interrupted by a signal. It can be restarted if needed.
       case interrupted
+      // The requested option is unknown.
+      case unknownRequestedOption
     }
   }
 }
@@ -55,6 +60,7 @@ public extension ZeroMQ.ZeroMQError.ContextReason {
     switch self {
       case .invalidContext: return EFAULT
       case .interrupted: return EINTR
+      case .unknownRequestedOption: return EINVAL
     }
   }
   
@@ -68,6 +74,8 @@ public extension ZeroMQ.ZeroMQError.ContextReason {
       return "The provided context was invalid."
       case .interrupted:
       return "Termination was interrupted by a signal. It can be restarted if needed."
+      case .unknownRequestedOption:
+        return "The requested option option_name is unknown."
     }
   }
 }
