@@ -45,14 +45,24 @@ public extension ZeroMQ {
       
     }
     
-    deinit { try? destroy() }
+    deinit { try? terminate() }
     
-    func destroy() throws {
+    private func validatedContext() throws -> UnsafeMutableRawPointer! {
       guard let context = context else {
         throw ZeroMQError.ContextReason.invalidContext.underlyError
       }
-      
-      guard zmq_ctx_destroy(context) == 0 else {
+      return context
+    }
+
+    func terminate() throws {
+      guard zmq_ctx_term(try validatedContext()) == 0 else {
+        throw ZeroMQError.underlyError
+      }
+      self.context = nil
+    }
+    
+    func destroy() throws {
+      guard zmq_ctx_destroy(try validatedContext()) == 0 else {
         throw ZeroMQError.underlyError
       }
       self.context = nil
@@ -62,7 +72,7 @@ public extension ZeroMQ {
     /// - Parameter option: option names
     /// - Returns: The value is 0 or greater. it depends on the `option` argument.
     func get(_ option: inout ContextOption) throws {
-      let value = Int(zmq_ctx_get(context, option.code))
+      let value = Int(zmq_ctx_get(try validatedContext(), option.code))
       guard value > 0 else { throw ZeroMQError.underlyError }
       
       switch option {
@@ -79,6 +89,7 @@ public extension ZeroMQ {
     }
     
     func set(for option: ContextOption) throws {
+      let context = try validatedContext()
       let code: Int32
       switch option {
         case .ioThreads(let num):
@@ -102,6 +113,18 @@ public extension ZeroMQ {
       }
       
       guard code == 0 else { throw ZeroMQError.underlyError }
+    }
+    
+    /// The function shall shutdown the ØMQ context context. Context shutdown will cause
+    /// any blocking operations currently in progress on sockets open within context to return immediately
+    /// with an error code of ETERM. With the exception of zmq_close(), any further operations
+    /// on sockets open within context shall fail with an error code of ETERM.
+    /// - This function is optional, client code is still required to call the `destroy()` to free
+    /// all resources allocated by zeromq.
+    func shutdown() throws {
+      guard zmq_ctx_shutdown(try validatedContext()) == 0 else {
+        throw ZeroMQError.underlyError
+      }
     }
   }
 }
